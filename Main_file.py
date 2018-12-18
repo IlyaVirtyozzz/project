@@ -6,7 +6,7 @@ import urllib.request
 from Coder import *
 
 
-class Window1(QMainWindow):
+class Text_Coder_Window1(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('coder.ui', self)
@@ -127,7 +127,7 @@ class Window1(QMainWindow):
         pyperclip.copy(self.final_text)  # копирует в буфер обмена
 
 
-class Window2(QMainWindow):
+class Ip_Finder_Window2(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('ip.ui', self)
@@ -151,7 +151,7 @@ class Window2(QMainWindow):
             self.label_2.setText("Что-то пошло не так :( Проверьте введённые данные")
 
 
-class Window3(QMainWindow):
+class Number_Finder_Window3(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('number.ui', self)
@@ -175,41 +175,58 @@ class Window3(QMainWindow):
             self.label_2.setText("Что-то пошло не так :( Проверьте введённые данные")
 
 
-class Window4(QMainWindow):
+class File_Coder_Window4(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.file_name = 'Не выбран путь'
         uic.loadUi('file.ui', self)
         self.setWindowIcon(QIcon('RM_icon.jpg'))
+        self.label.setText(self.file_name)
         self.pushButton.clicked.connect(self.crypt_run)
         self.pushButton_2.clicked.connect(self.decrypt_run)
+        self.pushButton_3.clicked.connect(self.check_name)
         with open('import_info.json', 'r', encoding='utf-8') as f_obj:
             self.label_2.setText(json.load(f_obj)['info']["Шифровка файла"])
 
+    def check_name(self):
+        options = QtWidgets.QFileDialog.Options()
+        name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+                                                        "All Files (*);;Python Files (*.py)", options=options)
+        if name:
+            self.file_name = name
+            self.label.setText(self.file_name)
+
     def crypt_run(self):
-        name = self.lineEdit.text()
         i, okBtnPressed = QInputDialog.getText(
             self, "Ввод пароля", "Введите пароль"
         )
-        if okBtnPressed:
-            try:
-                Crypt_picture(name, i)  # шифруем файл
-            except Exception:
-                self.label_3.setText('Ошибка\nПроверьте введённые данные')
+        if self.file_name != 'Не выбран путь':
+            if okBtnPressed:
+                try:
+                    Crypt_picture(self.file_name, i)  # шифруем файл
+                    self.label_3.setText('Готово')
+                except Exception:
+                    self.label_3.setText('Ошибка\nПроверьте введённые данные')
+            else:
+                self.label_3.setText('Вы не ввели пароль')
         else:
-            self.label_3.setText('Вы не ввели пароль')
+            self.label_3.setText('Вы не ввели путь')
 
     def decrypt_run(self):
-        name = self.lineEdit.text()
         i, okBtnPressed = QInputDialog.getText(
             self, "Ввод пароля", "Введите пароль"
         )
-        if okBtnPressed:
-            try:
-                Decrypt_picture(name, i)  # дешифруем файл
-            except Exception:
-                self.label_3.setText('Ошибка\nПроверьте введённые данные')
+        if self.file_name != 'Не выбран путь':
+            if okBtnPressed:
+                try:
+                    Decrypt_picture(self.file_name, i)  # дешифруем файл
+                    self.label_3.setText('Готово')
+                except Exception:
+                    self.label_3.setText('Ошибка\nПроверьте введённые данные')
+            else:
+                self.label_3.setText('Вы не ввели пароль')
         else:
-            self.label_3.setText('Вы не ввели пароль')
+            self.label_3.setText('Вы не ввели путь')
 
 
 class MainWindow(QMainWindow):
@@ -233,20 +250,20 @@ class MainWindow(QMainWindow):
         self.pushButton_4.clicked.connect(self.show_window_4)
 
     def show_window_1(self):
-        self.w1 = Window1()
+        self.w1 = Text_Coder_Window1()
         self.w1.show()
 
     def show_window_2(self):
-        self.w2 = Window2()
+        self.w2 = Ip_Finder_Window2()
         self.w2.show()
 
     def show_window_3(self):
-        self.w3 = Window3()
+        self.w3 = Number_Finder_Window3()
         self.w3.show()
 
     def show_window_4(self):
-        self.w1 = Window4()
-        self.w1.show()
+        self.w4 = File_Coder_Window4()
+        self.w4.show()
 
 
 if __name__ == '__main__':
