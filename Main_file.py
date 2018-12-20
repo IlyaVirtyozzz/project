@@ -1,4 +1,4 @@
-import sys, json, pyperclip
+import sys, json, pyperclip, textwrap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QInputDialog
 from PyQt5 import QtWidgets, QtCore, uic
 from PyQt5.QtGui import QIcon
@@ -37,28 +37,29 @@ class Text_Coder_Window1(QMainWindow):
             if self.encode == "Не выбрано":
                 self.label_8.setText("Кодировка не выбрана")  # вставляем инфу о шифре
             elif self.encode == 'Шифр Цезаря':
-                self.info_text = regulation(self.key_dict['Шифр Цезаря'], 26)
+                print(1)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict['Шифр Цезаря'], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == 'Шифр Виженера':
-                self.info_text = regulation(self.key_dict['Шифр Виженера'], 26)
-                self.label_8.setText(regulation(self.info_text))
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict['Шифр Виженера'], 26))
+                self.label_8.setText(self.info_text)
             elif self.encode == 'Азбука Морзе':
-                self.info_text = regulation(self.key_dict['Азбука Морзе'], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict['Азбука Морзе'], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == 'Шифр замены':
-                self.info_text = regulation(self.key_dict['Шифр замены'], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict['Шифр замены'], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == "Омофонический шифр":
-                self.info_text = regulation(self.key_dict["Омофонический шифр"], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict["Омофонический шифр"], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == "Бинарный код":
-                self.info_text = regulation(self.key_dict["Бинарный код"], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict["Бинарный код"], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == "Шифрование Гронсвельда":
-                self.info_text = regulation(self.key_dict["Шифрование Гронсвельда"], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict["Шифрование Гронсвельда"], 26))
                 self.label_8.setText(self.info_text)
             elif self.encode == "Псевдосимвольное шифрование":
-                self.info_text = regulation(self.key_dict["Псевдосимвольное шифрование"], 26)
+                self.info_text = '\n'.join(textwrap.wrap(self.key_dict["Псевдосимвольное шифрование"], 26))
                 self.label_8.setText(self.info_text)
 
     def crypt_run(self):
@@ -67,28 +68,28 @@ class Text_Coder_Window1(QMainWindow):
                 pass
             elif self.encode == "Шифр Цезаря":
                 self.final_text = Crypt_Caesar(self.textEdit.toPlainText(), int(self.lineEdit.text()))
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифр Виженера":
                 self.final_text = Crypt_Vigenere(self.textEdit.toPlainText(), self.lineEdit.text())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Азбука Морзе":
                 self.final_text = Crypt_Morze(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифр замены":
                 self.final_text = Crypt_replace(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Омофонический шифр":
                 self.final_text = Crypt_omofon(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифрование Гронсвельда":
                 self.final_text = Crypt_Gronsfeld(self.textEdit.toPlainText(), self.lineEdit.text())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Псевдосимвольное шифрование":
                 self.final_text = Crypt_pseudosim(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Бинарный код":
                 self.final_text = Crypt_Binary_code(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
         except Exception:
             self.label_6.setText('Что-то не так... Проверьте правильность введённых данных')
 
@@ -98,28 +99,28 @@ class Text_Coder_Window1(QMainWindow):
                 pass
             elif self.encode == "Шифр Цезаря":
                 self.final_text = Decrypt_Caesar(self.textEdit.toPlainText(), int(self.lineEdit.text()))
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифр Виженера":
                 self.final_text = Decrypt_Vegenere(self.textEdit.toPlainText(), self.lineEdit.text())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Азбука Морзе":
                 self.final_text = Decrypt_Morze(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифр замены":
                 self.final_text = Decrypt_replace(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Омофонический шифр":
                 self.final_text = Decrypt_omofon(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Шифрование Гронсвельда":
                 self.final_text = Decrypt_Gronsfeld(self.textEdit.toPlainText(), self.lineEdit.text())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Псевдосимвольное шифрование":
                 self.final_text = Decrypt_pseudosim(self.textEdit.toPlainText())
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
             elif self.encode == "Бинарный код":
                 self.final_text = Derypt_Binary_code((self.textEdit.toPlainText()))
-                self.label_6.setText(regulation(self.final_text))
+                self.label_6.setText('\n'.join(textwrap.wrap(self.final_text)))
         except Exception:
             self.label_6.setText('Что-то не так... Проверьте правильность введённых данных')
 
@@ -190,7 +191,7 @@ class File_Coder_Window4(QMainWindow):
 
     def check_name(self):
         options = QtWidgets.QFileDialog.Options()
-        name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+        name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Выберите файл", "C:\\",
                                                         "All Files (*);;Python Files (*.py)", options=options)
         if name:
             self.file_name = name
@@ -203,7 +204,7 @@ class File_Coder_Window4(QMainWindow):
         if self.file_name != 'Не выбран путь':
             if okBtnPressed:
                 try:
-                    Crypt_picture(self.file_name, i)  # шифруем файл
+                    Crypt_file(self.file_name, i)  # шифруем файл
                     self.label_3.setText('Готово')
                 except Exception:
                     self.label_3.setText('Ошибка\nПроверьте введённые данные')
@@ -219,7 +220,7 @@ class File_Coder_Window4(QMainWindow):
         if self.file_name != 'Не выбран путь':
             if okBtnPressed:
                 try:
-                    Decrypt_picture(self.file_name, i)  # дешифруем файл
+                    Decrypt_file(self.file_name, i)  # дешифруем файл
                     self.label_3.setText('Готово')
                 except Exception:
                     self.label_3.setText('Ошибка\nПроверьте введённые данные')

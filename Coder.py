@@ -72,18 +72,6 @@ def Crypt_Vigenere(text, key='A'):
         return 'Введите данные корректно'
 
 
-def regulation(text, y=65):
-    text_true = ''
-    for n, i in enumerate(text):
-        text_true += i
-        if (n + 1) % y == 0:
-            text_true += '\n'
-    if len(text_true) != 0:
-        return text_true
-    else:
-        return 'Введите данные корректно'
-
-
 def Crypt_Morze(text):
     text = text.upper()
     with open('import_info.json', 'r', encoding='utf-8') as f_obj:
@@ -141,7 +129,6 @@ def Decrypt_replace(text):
 def Crypt_omofon(text):
     from random import randint
     text = Text_up(text)
-    print(text)
     crypt_full = []
     with open('import_info.json', 'r', encoding='utf-8') as f_obj:
         keys = json.load(f_obj)['Omofon_keys']
@@ -177,7 +164,7 @@ def Decrypt_omofon(text):
         return 'Введите корректно'
 
 
-def Crypt_picture(file, password):
+def Crypt_file(file, password):
     import pyAesCrypt
     from os import remove
     bufferSize = 64 * 1024
@@ -185,7 +172,7 @@ def Crypt_picture(file, password):
     remove(file)
 
 
-def Decrypt_picture(file, password):
+def Decrypt_file(file, password):
     import pyAesCrypt
     from os import remove
     from os.path import splitext
